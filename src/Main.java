@@ -1,56 +1,46 @@
-class LibraryItem {
-    private int id;
-    private String title;
-    private int year;
-    public LibraryItem(int id, String title, int year) {
-        this.id = id;
-        this.title = title;
-        this.year = year;
+class Employee {
+    private String name;
+    public Employee(String name) {
+        this.name = name;
     }
-    public int getId() {
-        return id;
+    public String getName() {
+        return name;
     }
-    public String getTitle() {
-        return title;
-    }
-    public int getYear() {
-        return year;
+    public double calculatePay() {
+        return 0.0;
     }
 }
-class Book extends LibraryItem {
-    private String author;
-    public Book(int id, String title, int year, String author) {
-        super(id, title, year);
-        this.author = author;
+class SalariedEmployee extends Employee {
+    private double salary;
+    public SalariedEmployee(String name, double salary) {
+        super(name);
+        this.salary = salary;
     }
-    public String getAuthor() {
-        return author;
-    }
-}
-class Magazine extends LibraryItem {
-    private int issue;
-    public Magazine(int id, String title, int year, int issue) {
-        super(id, title, year);
-        this.issue = issue;
-    }
-    public int getIssue() {
-        return issue;
+    @Override
+    public double calculatePay() {
+        return salary;
     }
 }
-public class Main {
+class HourlyEmployee extends Employee {
+    private double hourlyRate;
+    private double hoursWorked;
+    public HourlyEmployee(String name, double hourlyRate, double hoursWorked) {
+        super(name);
+        this.hourlyRate = hourlyRate;
+        this.hoursWorked = hoursWorked;
+    }
+    @Override
+    public double calculatePay() {
+        return hourlyRate * hoursWorked; // Weekly pay
+    }
+}
+public class Main{
     public static void main(String[] args) {
-        // Create instances of Book and Magazine
-        Book book1 = new Book(1, "The Great Gatsby", 1925, "F. Scott Fitzgerald");
-        Magazine magazine1 = new Magazine(2, "National Geographic", 2023, 8);
-        // Display information about the items
-        System.out.println("Book ID: " + book1.getId());
-        System.out.println("Book Title: " + book1.getTitle());
-        System.out.println("Book Year: " + book1.getYear());
-        System.out.println("Book Author: " + book1.getAuthor());
-        System.out.println();
-        System.out.println("Magazine ID: " + magazine1.getId());
-        System.out.println("Magazine Title: " + magazine1.getTitle());
-        System.out.println("Magazine Year: " + magazine1.getYear());
-        System.out.println("Magazine Issue: " + magazine1.getIssue());
+        SalariedEmployee salariedEmployee = new SalariedEmployee("Vicky", 500000);
+        HourlyEmployee hourlyEmployee = new HourlyEmployee("Manju", 15.0, 40.0);
+        System.out.println("Salaried Employee: " + salariedEmployee.getName());
+        System.out.println("Monthly Salary: $" + salariedEmployee.calculatePay());
+        System.out.println("\nHourly Employee: " + hourlyEmployee.getName());
+        System.out.println("Weekly Pay: $" + hourlyEmployee.calculatePay());
     }
 }
